@@ -7,7 +7,8 @@ import {
   Posts,
   Profile,
   Home,
-  Register
+  Register,
+  Login,
 } from './components';
 
 import {
@@ -38,6 +39,7 @@ const App = () => {
         <Route path='/' element={<Home />} />
         <Route path='/posts' element={<Posts posts={posts} />} />
         <Route path='/profile' element={<Profile />} />
+        <Route path='/login' element={<Login />} />
         <Route 
           path='/register'
           element={<Register

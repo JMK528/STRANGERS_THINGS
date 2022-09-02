@@ -32,3 +32,26 @@ export const registerUser = async (username, password) => {
     console.log('error registering user')
   }
 }
+
+export const loginUser = async (username, password) => {
+  try {
+    const response = await fetch(`${baseURL}/users/loginregister`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+        //'Authorization': 'bearer actual token string'
+      },
+      body: JSON.stringify({
+        user: {
+          username: '',
+          password: ''
+        }
+      })
+    })
+    const result = await response.json();
+    // return result;
+    console.log(result)
+  } catch(error) {
+    console.log('error logging in user')
+  }
+}
