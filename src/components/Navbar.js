@@ -1,10 +1,7 @@
 import React from 'react';
-import { 
-  Link, 
-  Button, 
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const Navbar = ({ setToken }) => {
+const Navbar = ({ logout }) => {
   return (
     <header>
       <nav>

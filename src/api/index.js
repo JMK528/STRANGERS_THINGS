@@ -21,14 +21,14 @@ export const createPosts = async () => {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer TOKEN_STRING_HERE'
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({
         post: {
           title: '',
           description: '',
           price: '',
-          willDeliver: true
+          willDeliver: '',
         }
       })
     })

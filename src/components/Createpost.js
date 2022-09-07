@@ -10,9 +10,13 @@ const Createpost = () => {
        <input value={title} onChange={(event) => {
         setTitle(event.target.value)
        }}/>
-       {/* <input>Description: </input>
-       <input>Price: </input>
-       <input></input> */}
+       <input value={description} onChange={(event) => {
+        setDescription(event.target.value)
+       }}/>
+       <input value={price} onChange={(event) => {
+        setPrice(event.target.value)
+       }}/>
+       <input></input>
     </div>    
   )}
   
