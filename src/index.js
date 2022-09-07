@@ -9,47 +9,84 @@ import {
   Home,
   Register,
   Login,
+  CreatePost,
 } from './components';
 
 import {
-  getPosts
+  getPosts,
+  getUserDetails,
 } from './api';
+
 
 const App = () => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState('');
+  const [user, setUser] = useState({});
+  
   const navigate = useNavigate();
-  console.log(navigate)
-  
-  console.log(token)
-  
+
+  function logout() {
+    window.localStorage.removeItem('token');
+    setToken('');
+    setUser({});
+  }  
+
   async function fetchPosts() {
-    const results = await getPosts()
+    const results = await getPosts(token)
     setPosts(results.data.posts);
   }
-  
+
+  async function getMe() {
+    const storedToken = window.localStorage.getItem('token');
+
+    if (!token) {
+      if (storedToken) {
+      setToken(storedToken);
+      }
+      return;
+    }
+
+    const results = await getUserDetails(token);
+    if (results.success) {
+      setUser(results.data);
+    } else {
+      console.log(results.error.message);
+    }
+  }
+
   useEffect(() => {
     fetchPosts()
   }, [])
-  
+
+  useEffect(() => {
+    getMe();
+  }, [token])
+
   return (
     <div>
-      <Navbar />
+      <Navbar logout={logout} />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/posts' element={<Posts posts={posts} />} />
+        <Route path='/posts/add' element={<CreatePost />} />
         <Route path='/profile' element={<Profile />} />
-        <Route path='/login' element={<Login />} />
-        <Route 
+        <Route
+          path='/login'
+          element={<Login
+            setToken={setToken}
+            token={token}
+            navigate={navigate} />} />
+        <Route
           path='/register'
           element={<Register
-          setToken={ setToken } 
-          token={token}
-          navigate={navigate}/>} />
+            setToken={setToken}
+            token={token}
+            navigate={navigate} />} />
       </Routes>
     </div>
   )
 }
+
 
 const container = document.querySelector('#root');
 const root = ReactDOM.createRoot(container);

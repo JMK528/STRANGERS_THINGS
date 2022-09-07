@@ -1,12 +1,41 @@
 const baseURL = 'https://strangers-things.herokuapp.com/api/2206-FTB-ET-WEB-PT'
 
-export const getPosts = async() => {
+export const getPosts = async (token) => {
   try {
-    const response = await fetch(`${baseURL}/posts`);
+    const response = await fetch(`${baseURL}/posts`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
     const results = await response.json();
     return results;
-  } catch(error) {
+  } catch (error) {
     console.log('error getting all posts')
+  }
+}
+
+export const createPosts = async () => {
+  try {
+    const response = await fetch(`${baseURL}/posts`, {      
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer TOKEN_STRING_HERE'
+      },
+      body: JSON.stringify({
+        post: {
+          title: '',
+          description: '',
+          price: '',
+          willDeliver: true
+        }
+      })
+    })
+    const results = await response.json();
+    console.log(results)
+  } catch (error) {
+    console.log('error creating post')
   }
 }
 
@@ -17,7 +46,6 @@ export const registerUser = async (username, password) => {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
-        //'Authorization': 'bearer actual token string'
       },
       body: JSON.stringify({
         user: {
@@ -28,30 +56,46 @@ export const registerUser = async (username, password) => {
     })
     const result = await response.json();
     return result;
-  } catch(error) {
+  } catch (error) {
     console.log('error registering user')
   }
 }
 
 export const loginUser = async (username, password) => {
   try {
-    const response = await fetch(`${baseURL}/users/loginregister`, {
+    const response = await fetch(`${baseURL}/users/login`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json'
-        //'Authorization': 'bearer actual token string'
       },
       body: JSON.stringify({
         user: {
-          username: '',
-          password: ''
+          username: username,
+          password: password
         }
       })
     })
     const result = await response.json();
-    // return result;
-    console.log(result)
-  } catch(error) {
+    return result;
+
+  } catch (error) {
     console.log('error logging in user')
+  }
+}
+
+
+export const getUserDetails = async (token) => {
+  try{
+    const response = await fetch(`${baseURL}/users/me`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    })
+    const result = await response.json();
+      return result
+
+  } catch(error){
+    console.log('error getting users details')
   }
 }

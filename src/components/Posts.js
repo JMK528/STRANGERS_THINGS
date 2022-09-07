@@ -3,7 +3,8 @@ import React from 'react';
 const Posts = ({ posts }) => {
   
   return (
-    <div id='outer div element'>
+    <div id='outerdiv element'>
+      
     {
       posts.map((post) => {
         const {description, location, price, title, _id} = post;
