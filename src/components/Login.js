@@ -29,8 +29,11 @@ const Login = ({ setToken, navigate }) => {
         onChange={(event) => setUsername(event.target.value)}
       />
       <input
-        type='password'
-        placeholder='Enter Password*'
+        // className='box'
+        // type='password'
+        // minLength={'8'}
+        // required title='8 character minimum'
+        placeholder='Current Password*'
         onChange={(event) => setPassword(event.target.value)}
       />
       <button type='submit'>Submit</button>

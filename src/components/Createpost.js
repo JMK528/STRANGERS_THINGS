@@ -1,7 +1,8 @@
 import React, {useState} from "react";
-import {createPosts} from '../api';
+import { navigate } from "react-router-dom";
+import {createPosts, getPosts} from '../api';
 
-const Createpost = ( { token }) => {
+const Createpost = ( { token, fetchPosts, navigate }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
@@ -63,6 +64,8 @@ const Createpost = ( { token }) => {
         <button onClick={(event) => {
           event.preventDefault();
           addPost();
+          fetchPosts();
+          navigate('/posts')
           window.location = '/posts'}}>Create a New Post</button>
         
       </form>  

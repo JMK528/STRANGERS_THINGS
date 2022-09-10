@@ -28,12 +28,16 @@ const Register = ({ setToken, navigate }) => {
         onChange={(event) => setUsername(event.target.value)}
       />
       <input 
+        className='box'
         type='password'
+        minLength={'8'}
+        required title='8 character minimum'
         placeholder='Enter Password*'
         onChange={(event) => setPassword(event.target.value)}
       />
       <input 
         type='password'
+        minLength={'8'}
         placeholder='Confrim Password*'
         onChange={(event) => setPassword(event.target.value)}
       />

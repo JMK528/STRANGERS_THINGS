@@ -86,7 +86,12 @@ const App = () => {
            />
           <Route
             path='/posts/create-post'
-            element={<CreatePost token={ token } />}
+            element={<CreatePost fetchPosts={ fetchPosts } token={ token } />}
+          />
+          <Route
+          exact path='/posts/edit-post/:postID'
+          element={<EditPost
+          posts={ posts }/>}
           />
           <Route
             path='/login'
