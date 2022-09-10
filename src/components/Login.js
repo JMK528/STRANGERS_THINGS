@@ -7,7 +7,7 @@ const Login = ({ setToken, navigate }) => {
   const [password, setPassword] = useState('');
 
   const handleSubmit = async () => {
-    const results = await loginUser(username, password);   
+    const results = await loginUser(username, password);
     if (results.success) {
       setToken(results.data.token)
       window.localStorage.setItem('token', results.data.token)
@@ -18,22 +18,24 @@ const Login = ({ setToken, navigate }) => {
   }
 
   return (
+
     <form onSubmit={(event) => {
       event.preventDefault();
       handleSubmit();
     }}>
       <input
         type='text'
-        placeholder='Enter Username'
+        placeholder='Enter Username*'
         onChange={(event) => setUsername(event.target.value)}
       />
       <input
         type='password'
-        placeholder='Enter Password'
+        placeholder='Enter Password*'
         onChange={(event) => setPassword(event.target.value)}
       />
       <button type='submit'>Submit</button>
     </form>
+
   )
 }
 

@@ -1,23 +1,71 @@
 import React, {useState} from "react";
 import {createPosts} from '../api';
 
-const Createpost = () => {
-  const [title,setTitle]= useState('')
-  const [description,setDescription]= useState('')
-  const [price,setPrice]= useState('')
+const Createpost = ( { token }) => {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState('');
+  const [location, setLocation] = useState('');
+  const [willDeliver, setWillDeliver] = useState(false);
+  const newPost = {
+    title,
+    description,
+    price,
+    location,
+    willDeliver,
+  }
+  
+ 
+  async function addPost() {
+    const results = await createPosts(token, newPost);
+    console.log(results)
+    
+
+  }
     return (
-     <div>
-       <input value={title} onChange={(event) => {
-        setTitle(event.target.value)
-       }}/>
-       <input value={description} onChange={(event) => {
-        setDescription(event.target.value)
-       }}/>
-       <input value={price} onChange={(event) => {
-        setPrice(event.target.value)
-       }}/>
-       <input></input>
-    </div>    
+      <form onSubmit={(event) => {
+        event.preventDefault();
+        addPost();
+        
+      }}>
+        <input
+          type='text'
+          placeholder="Title*"
+          value={title}
+          onChange={(event) => setTitle(event.target.value)}
+        />
+        <input
+          type='text'
+          placeholder="Description*"
+          value={description}
+          onChange={(event) => setDescription(event.target.value)}
+        />
+        <input
+          type='text'
+          placeholder="Price*"
+          value={price}
+          onChange={(event) => setPrice(event.target.value)}
+        />
+        <input
+          type='text'
+          placeholder="Location*"
+          value={location}
+          onChange={(event) => setLocation(event.target.value)}
+        />
+        <label>Will Deliver</label>
+        <input
+          type='checkbox'
+          placeholder="Will Deliver*"
+          checked={willDeliver}
+          onChange={(event) => setWillDeliver(!willDeliver)}
+        />
+            
+        <button onClick={(event) => {
+          event.preventDefault();
+          addPost();
+          window.location = '/posts'}}>Create a New Post</button>
+        
+      </form>  
   )}
   
   export default Createpost;

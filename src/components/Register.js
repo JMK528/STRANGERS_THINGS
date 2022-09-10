@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { registerUser } from '../api';
 
 const Register = ({ setToken, navigate }) => {
-  // props.setToken
-  // const {setToken} = props
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   
@@ -25,12 +24,17 @@ const Register = ({ setToken, navigate }) => {
     }}>
       <input 
         type='text'
-        placeholder='Enter Username'
+        placeholder='Enter Username*'
         onChange={(event) => setUsername(event.target.value)}
       />
       <input 
         type='password'
-        placeholder='Enter Password'
+        placeholder='Enter Password*'
+        onChange={(event) => setPassword(event.target.value)}
+      />
+      <input 
+        type='password'
+        placeholder='Confrim Password*'
         onChange={(event) => setPassword(event.target.value)}
       />
       <button type='submit'>Submit</button>

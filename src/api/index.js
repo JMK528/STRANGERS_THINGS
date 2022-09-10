@@ -15,9 +15,9 @@ export const getPosts = async (token) => {
   }
 }
 
-export const createPosts = async () => {
+export const createPosts = async (token, {title, description, price, location, willDeliver}) => {
   try {
-    const response = await fetch(`${baseURL}/posts`, {      
+    const response = await fetch(`${baseURL}/posts`, {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -25,20 +25,42 @@ export const createPosts = async () => {
       },
       body: JSON.stringify({
         post: {
-          title: '',
-          description: '',
-          price: '',
-          willDeliver: '',
+          title,
+          description,
+          price,
+          location,
+          willDeliver,
+        }
+      })
+    })
+    const results = await response.json();
+    console.log(results)
+    return(results)
+  } catch (error) {
+    console.log('error creating a new post')
+  }
+}
+
+export const createMessages = async (token) => {
+  try {
+    const response = await fetch(`${baseURL}/posts/${token}/messages`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        message: {
+          content: ''
         }
       })
     })
     const results = await response.json();
     console.log(results)
   } catch (error) {
-    console.log('error creating post')
+    console.log('error creating message')
   }
 }
-
 
 export const registerUser = async (username, password) => {
   try {
@@ -85,7 +107,7 @@ export const loginUser = async (username, password) => {
 
 
 export const getUserDetails = async (token) => {
-  try{
+  try {
     const response = await fetch(`${baseURL}/users/me`, {
       headers: {
         'Content-Type': 'application/json',
@@ -93,9 +115,9 @@ export const getUserDetails = async (token) => {
       },
     })
     const result = await response.json();
-      return result
+    return result
 
-  } catch(error){
+  } catch (error) {
     console.log('error getting users details')
   }
 }

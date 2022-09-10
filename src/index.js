@@ -10,6 +10,7 @@ import {
   Register,
   Login,
   CreatePost,
+  SinglePostView,
 } from './components';
 
 import {
@@ -22,14 +23,14 @@ const App = () => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState('');
   const [user, setUser] = useState({});
-  
+
   const navigate = useNavigate();
 
   function logout() {
     window.localStorage.removeItem('token');
     setToken('');
     setUser({});
-  }  
+  }
 
   async function fetchPosts() {
     const results = await getPosts(token)
@@ -41,7 +42,7 @@ const App = () => {
 
     if (!token) {
       if (storedToken) {
-      setToken(storedToken);
+        setToken(storedToken);
       }
       return;
     }
@@ -56,34 +57,52 @@ const App = () => {
 
   useEffect(() => {
     fetchPosts()
-  }, [])
+  }, [token])
 
   useEffect(() => {
     getMe();
   }, [token])
 
   return (
-    <div>
-      <Navbar logout={logout} />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/posts' element={<Posts posts={posts} />} />
-        <Route path='/posts/add' element={<CreatePost />} />
-        <Route path='/profile' element={<Profile />} />
-        <Route
-          path='/login'
-          element={<Login
-            setToken={setToken}
-            token={token}
-            navigate={navigate} />} />
-        <Route
-          path='/register'
-          element={<Register
-            setToken={setToken}
-            token={token}
-            navigate={navigate} />} />
-      </Routes>
-    </div>
+    <header>
+      <nav>
+        <Navbar logout={logout} token={token} />
+        <Routes>
+          <Route 
+          path='/' 
+          element={<Home />} 
+          />
+          <Route 
+          path='/posts' 
+          element={<Posts posts={ posts } token={ token } />} 
+          />
+          <Route
+          path='/posts/:postID'
+          element={<SinglePostView posts={ posts } />}
+          />
+          <Route 
+          path='/profile' 
+          element={<Profile />}
+           />
+          <Route
+            path='/posts/create-post'
+            element={<CreatePost token={ token } />}
+          />
+          <Route
+            path='/login'
+            element={<Login
+              setToken={setToken}            
+              navigate={navigate} />} />
+          <Route
+            path='/register'
+            element={<Register
+              setToken={setToken}
+              token={token}
+              navigate={navigate} />} />
+        </Routes>
+      </nav>
+    </header>
+
   )
 }
 
