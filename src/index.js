@@ -11,6 +11,7 @@ import {
   Login,
   CreatePost,
   SinglePostView,
+  EditPost,
 } from './components';
 
 import {
@@ -23,6 +24,8 @@ const App = () => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState('');
   const [user, setUser] = useState({});
+  
+
 
   const navigate = useNavigate();
 
@@ -78,11 +81,14 @@ const App = () => {
           />
           <Route
           path='/posts/:postID'
-          element={<SinglePostView posts={ posts } />}
+          element={<SinglePostView 
+            posts={ posts }
+            token={token} 
+            />}
           />
           <Route 
           path='/profile' 
-          element={<Profile />}
+          element={<Profile user={ user } />}
            />
           <Route
             path='/posts/create-post'
@@ -91,7 +97,8 @@ const App = () => {
           <Route
           exact path='/posts/edit-post/:postID'
           element={<EditPost
-          posts={ posts }/>}
+          posts={ posts }
+          token={token}/>}
           />
           <Route
             path='/login'

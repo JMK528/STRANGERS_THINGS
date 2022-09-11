@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import { updatePost } from "../api";
 
 
 
-const EditPost = () => {
+const EditPost = ({ posts, token }) => {
     const { postID } = useParams();
 
     const [currentPost] = posts.filter(post => post._id === postID);
@@ -16,26 +17,29 @@ const EditPost = () => {
     const [newPrice, setNewPrice] = useState(price);
     const [newWillDeliver, setNewWillDeliver] = useState(willDeliver);
 
-    async function editPost () {
+    async function editPost() {
         const updatedPost = {
-            newTitle,
-            newDescription,
-            newLocation,
-            newPrice,
-            newWillDeliver
+            token: token,
+            title: newTitle,
+            description: newDescription,
+            location: newLocation,
+            price: newPrice,
+            willDeliver: newWillDeliver,
+            _id: postID
         }
-        console.log(updatedPost)
+        await updatePost(updatedPost)
     }
 
     return (
-        <form onSubmit={(ev) => {
-            ev.preventDefault();
-            console.log('form submitted')
+        <form onSubmit={(event) => {
+            event.preventDefault();
+            editPost();
+            
         }}>
             <input
                 type='text'
                 placeholder={title}
-                onChange={(ev) => setNewTitle(ev.target.value)}
+                onChange={(event) => setNewTitle(event.target.value)}
             />
             <input
                 type='text'
@@ -56,9 +60,10 @@ const EditPost = () => {
             <input
                 type='checkbox'               
                 checked={newWillDeliver}
-                onChange={() => setNewWillDeliver(!willDeliver)}
+                onChange={(event) => setNewWillDeliver(event.target.checked)}
             />
             <button type="submit">Edit Post</button>
+            <button type="submit">Delete Post</button>
         </form>
     )
 }

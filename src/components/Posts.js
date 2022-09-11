@@ -24,7 +24,7 @@ const Posts = ({ posts, token }) => {
                 <p>Location: {location}</p>
                 {
                   isAuthor ? (
-                  <Link to={`/posts/edit-posts/${_id}`}>Edit</Link>
+                  <Link to={`/posts/edit-post/${_id}`}>Edit</Link>
                 ) : (
                   <Link to={`/posts/${_id}`}>View</Link>
                 )}

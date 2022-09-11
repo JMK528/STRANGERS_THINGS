@@ -5,9 +5,20 @@ const Register = ({ setToken, navigate }) => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  
+  const [confirmPassword,setConfirmPassword] = useState('');
   const handleSubmit = async () => {
+    console.log(password)
+    console.log(confirmPassword)
+    if ( password.search(/[A-Z]/) === -1){
+      alert('Need UpperCase')
+      return null
+    } 
+     if(password !== confirmPassword){
+      alert('Password Don\'t Match')
+      return null
+    }
     const results = await registerUser(username, password);
+
     if (results.success) {
       setToken(results.data.token)
       window.localStorage.setItem('token', results.data.token)
@@ -38,8 +49,8 @@ const Register = ({ setToken, navigate }) => {
       <input 
         type='password'
         minLength={'8'}
-        placeholder='Confrim Password*'
-        onChange={(event) => setPassword(event.target.value)}
+        placeholder='Confirm Password*'
+        onChange={(event) => setConfirmPassword(event.target.value)}
       />
       <button type='submit'>Submit</button>
     </form>

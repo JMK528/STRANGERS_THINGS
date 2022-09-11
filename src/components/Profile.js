@@ -1,51 +1,48 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Profile = ({ messages,token}) => {
-  return ( 
-    <>
-    <h1>PROFILE</h1>
-    <div id='outerdiv'>
-       {messages.map((message) => {
-        const { _id, content, post, fromUser, createdAt } = message;
-        return (
-          <div key={_id}>
-            <form>
-            <h2>Hello</h2>
-            <p>{content}</p>
-            <p>{post}</p>
-            <p>{fromUser}</p>
-            <p>{createdAt}</p>
-            </form>
-          </div>
-        );
-       })}
+const Profile = ({ user }) => {
+  const messages = user.messages;
+  const userID = user._id;
+
+  return (
+    <div>
+      <div>
+        <h1>Messages to ME</h1>
+        {
+          messages && messages.map(message => {
+            const fromUserID = message.fromUser._id;
+            const { username } = message.fromUser;
+            const { title } = message.post;
+
+            if (userID !== fromUserID) {
+              return (
+                <div key={message._id}>
+                  <p>From User:{username}</p>
+                  <p>Message: {message.content}</p>
+                  <p>Post Reference: {title}</p>
+                </div>
+              )
+            }
+          })
+
+        }
       </div>
-    </>
-    // <>
-    //   <h1>PROFILE</h1>
-    //   <div id='outerdiv element'>     
-    //     {posts.map((post) => {
-    //       const { message,title } = post;
-    //       return (
-    //         <div >
-    //           <form>
-    //             <h3>{title}</h3>
-    //             <p>message: {message}</p>              
-    //             {
-    //               isAuthor ? (
-    //               <button>You are the Author</button>
-    //             ) : (
-    //               <Link to={`/posts/${_id}`}>View</Link>
-    //             )}            
-    //           </form>
-    //         </div>
-    //       );
-    //     })}
-    //   </div>
-    // </>
+      <div>
+        <h1>Messages from ME</h1>
+        {
+          messages && messages.map(message => {
+            const fromUserID = message.fromUser._id;
+            if (userID === fromUserID) {
+              return (
+                <div key={message._id}>{message.content}</div>
+              )
+            }
+          })
+        }
+      </div>
+    </div>
   )
 }
-
 
 export default Profile;

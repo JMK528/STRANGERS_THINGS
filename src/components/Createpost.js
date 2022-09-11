@@ -1,8 +1,7 @@
 import React, {useState} from "react";
-import { navigate } from "react-router-dom";
-import {createPosts, getPosts} from '../api';
+import {createPost, getPosts} from '../api';
 
-const Createpost = ( { token, fetchPosts, navigate }) => {
+const Createpost = ( { token }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
@@ -18,7 +17,7 @@ const Createpost = ( { token, fetchPosts, navigate }) => {
   
  
   async function addPost() {
-    const results = await createPosts(token, newPost);
+    const results = await createPost(token, newPost);
     console.log(results)
     
 
@@ -64,8 +63,7 @@ const Createpost = ( { token, fetchPosts, navigate }) => {
         <button onClick={(event) => {
           event.preventDefault();
           addPost();
-          fetchPosts();
-          navigate('/posts')
+          getPosts();
           window.location = '/posts'}}>Create a New Post</button>
         
       </form>  
