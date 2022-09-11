@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { createMessage, deletePost } from "../api";
 
-const SendMessage = ({ postID, token }) => {
+const SendMessage = ({ postID, token, navigate }) => {
     const [message, setMessage] = useState({ content: '' })
-    const [willDeliver, setWillDeliver] = useState(false);
+
 
     async function addMessage() {
         await createMessage({ postID, message, token })
@@ -13,14 +13,18 @@ const SendMessage = ({ postID, token }) => {
     return (
         <form onSubmit={(ev) => {
             ev.preventDefault();
-            addMessage()
+            addMessage();
+            navigate('/post')
         }}>
             <input
                 type='text'
                 placeholder="Enter Message"
                 onChange={(ev) => setMessage({ content: ev.target.value })}
             />
-            <button type='submit'>SendMessage</button>
+            <button type='submit' onClick={() => {
+                addMessage();
+                navigate('/posts')
+            }}>SendMessage</button>
         </form>
     )
 }
@@ -46,7 +50,7 @@ const SinglePostView = ({ posts, token, navigate, getMe }) => {
                     isAuthor ? (
                         <>
                             <Link to={`/posts`}><button>View All</button></Link>
-                            <Link to={`/posts`}><button onClick={() => deletePost(token, _id)}>Delete</button></Link>
+                            <Link to={`/posts`}><button onClick={() => deletePost(token, postID)}>Delete</button></Link>
                         </>
                     ) : (
 

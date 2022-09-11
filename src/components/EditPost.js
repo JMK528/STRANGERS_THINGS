@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, navigate } from "react-router-dom";
 import { updatePost, deletePost } from "../api";
 
 
 
-const EditPost = ({ posts, token }) => {
+const EditPost = ({ posts, token, navigate, fetchPosts }) => {
     const { postID } = useParams();
 
     const [currentPost] = posts.filter(post => post._id === postID);
@@ -28,12 +28,15 @@ const EditPost = ({ posts, token }) => {
             _id: postID
         }
         await updatePost(updatedPost)
+        navigate('/posts' )   
+        fetchPosts()
     }
 
     return (
         <form onSubmit={(event) => {
             event.preventDefault();
             editPost();
+               
             
         }}>
             <input
@@ -62,9 +65,12 @@ const EditPost = ({ posts, token }) => {
                 checked={newWillDeliver}
                 onChange={(event) => setNewWillDeliver(event.target.checked)}
             />
-            <button type="submit">Edit Post</button>
+            <button type="submit"
+            onClick={() =>{
+                editPost();          
+            }}>Edit Post</button>
             <button onClick={() =>{
-                deletePost(token, postID);
+                deletePost(token, postID);                
             }}>Delete Post</button>
         </form>
     )

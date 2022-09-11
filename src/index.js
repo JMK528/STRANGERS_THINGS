@@ -12,6 +12,8 @@ import {
   CreatePost,
   SinglePostView,
   EditPost,
+ 
+
 } from './components';
 
 import {
@@ -24,7 +26,8 @@ const App = () => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState('');
   const [user, setUser] = useState({});
-  
+
+
 
 
   const navigate = useNavigate();
@@ -71,47 +74,56 @@ const App = () => {
       <nav>
         <Navbar logout={logout} token={token} />
         <Routes>
-          <Route 
-          path='/' 
-          element={<Home />} 
-          />
-          <Route 
-          path='/posts' 
-          element={<Posts posts={ posts } token={ token } />} 
+          <Route
+            path='/'
+            element={<Home />}
           />
           <Route
-          path='/posts/:postID'
-          element={<SinglePostView 
-            posts={ posts }
-            token={token} 
+            path='/posts'
+            element={<Posts
+              posts={posts}
+              token={token}
+              navigate={navigate} />}
+          />
+          <Route
+            path='/posts/:postID'
+            element={<SinglePostView
+              posts={posts}
+              token={token}
+              navigate={navigate}
             />}
           />
-          <Route 
-          path='/profile' 
-          element={<Profile user={ user } />}
-           />
           <Route
-            path='/posts/create-post'
-            element={<CreatePost fetchPosts={ fetchPosts } token={ token } />}
+            path='/profile'
+            element={<Profile user={user} />}
           />
           <Route
-          exact path='/posts/edit-post/:postID'
-          element={<EditPost
-          posts={ posts }
-          token={token}/>}
+            path='/posts/create-post'
+            element={<CreatePost
+              fetchPosts={fetchPosts}
+              token={token}
+              navigate={navigate} />}
+          />
+          <Route
+            exact path='/posts/edit-post/:postID'
+            element={<EditPost
+              fetchPosts={fetchPosts}
+              navigate={navigate}
+              posts={posts}
+              token={token} />}
           />
           <Route
             path='/login'
             element={<Login
-              setToken={setToken}            
+              setToken={setToken}
               navigate={navigate} />} />
           <Route
             path='/register'
             element={<Register
               setToken={setToken}
               token={token}
-              navigate={navigate} />} />
-        </Routes>
+              navigate={navigate} />} />        
+            </Routes>
       </nav>
     </header>
 
