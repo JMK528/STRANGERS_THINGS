@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useParams, navigate } from "react-router-dom";
 import { updatePost, deletePost } from "../api";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 

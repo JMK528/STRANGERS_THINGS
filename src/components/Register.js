@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { registerUser } from '../api';
-
+import { Button, TextField } from '@mui/material';
 const Register = ({ setToken, navigate }) => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const handleSubmit = async () => {
-    console.log(password)
-    console.log(confirmPassword)
+  
     if (password.search(/[A-Z]/) === -1) {
       alert('Need UpperCase')
       return null
@@ -35,23 +34,22 @@ const Register = ({ setToken, navigate }) => {
         event.preventDefault();
         handleSubmit();
       }}>
-        <input
-          type='text'
-          placeholder='Enter Username*'
-          onChange={(event) => setUsername(event.target.value)} />
-        <input
-          className='box'
+        <TextField style={{margin: '.25rem'}}
+        label='Enter Username'
+        onChange={(event) => setUsername(event.target.value)}
+      />
+        <TextField
           type='password'
           minLength={'8'}
           required title='8 character minimum'
           placeholder='Enter Password*'
           onChange={(event) => setPassword(event.target.value)} />
-        <input
+        <TextField
           type='password'
           minLength={'8'}
           placeholder='Confirm Password*'
           onChange={(event) => setConfirmPassword(event.target.value)} />
-        <button type='submit'>Submit</button>
+        <Button style={{ height: '3rem', margin: '.25rem' }} variant='contained' type='submit'>Submit</Button>
       </form>
     </>
   )

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Route, BrowserRouter, Routes, useNavigate } from 'react-router-dom';
 import './style.css';
+import { CssBaseline } from '@mui/material';
 import {
   Navbar,
   Posts,
@@ -20,6 +21,7 @@ import {
   getPosts,
   getUserDetails,
 } from './api';
+
 
 
 const App = () => {
@@ -70,6 +72,8 @@ const App = () => {
   }, [token])
 
   return (
+<React.Fragment>
+<CssBaseline/>
     <header>
       <nav>
         <Navbar logout={logout} token={token} />
@@ -126,7 +130,7 @@ const App = () => {
             </Routes>
       </nav>
     </header>
-
+    </React.Fragment>
   )
 }
 

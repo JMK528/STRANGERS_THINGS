@@ -4,7 +4,7 @@ import { createMessage, deletePost } from "../api";
 
 const SendMessage = ({ postID, token, navigate }) => {
     const [message, setMessage] = useState({ content: '' })
-
+    
 
     async function addMessage() {
         await createMessage({ postID, message, token })
@@ -21,9 +21,9 @@ const SendMessage = ({ postID, token, navigate }) => {
                 placeholder="Enter Message"
                 onChange={(ev) => setMessage({ content: ev.target.value })}
             />
-            <button type='submit' onClick={() => {
+            <button type='submit'onClick={() =>{
                 addMessage();
-                navigate('/posts')
+                navigate('/posts') 
             }}>SendMessage</button>
         </form>
     )

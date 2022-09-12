@@ -1,10 +1,13 @@
 import React from 'react';
+import { Paper, TextField, Typography } from '@mui/material';
 
 const Home = () => {
   return (
-    <div>
-      <h1>Welcome to Stranger's Things!</h1>
-    </div>
+    
+    <Typography variant='h1' component='h3'>
+      Welcome to Stranger's Things!
+    </Typography>
+    
   )
 }
 

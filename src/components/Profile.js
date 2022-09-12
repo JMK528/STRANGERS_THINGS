@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Button, TextField, Card, Paper } from '@mui/material';
 
 const Profile = ({ user }) => {
   const messages = user.messages;
   const userID = user._id;
 
   return (
-    <div>
-      <div>
-        <h1>Messages to ME</h1>
+    <Card>
+      <Card>
+        <h1>Messages to ME:</h1>
         {
           messages && messages.map(message => {
             const fromUserID = message.fromUser._id;
@@ -17,31 +18,31 @@ const Profile = ({ user }) => {
 
             if (userID !== fromUserID) {
               return (
-                <div key={message._id}>
+                <Card key={message._id}>
                   <p>From User:{username}</p>
                   <p>Message: {message.content}</p>
                   <p>Post Reference: {title}</p>
-                </div>
+                </Card>
               )
             }
           })
 
         }
-      </div>
-      <div>
-        <h1>Messages from ME</h1>
+      </Card>
+      <Card>
+        <h1>Messages from ME:</h1>
         {
           messages && messages.map(message => {
             const fromUserID = message.fromUser._id;
             if (userID === fromUserID) {
               return (
-                <div key={message._id}>{message.content}</div>
+                <Card key={message._id}>{message.content}</Card>
               )
             }
           })
         }
-      </div>
-    </div>
+      </Card>
+    </Card>
   )
 }
 
