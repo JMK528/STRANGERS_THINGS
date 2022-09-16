@@ -7,8 +7,9 @@ const Profile = ({ user }) => {
   const userID = user._id;
 
   return (
-    <Card>
-      <Card>
+    <Card style={{ padding: '.5rem', margin: '.5rem', backgroundColor:'#55586F', color: 'whitesmoke' }} elevation={6}>
+      <h1>PROFILE</h1>
+      <Card style={{ padding: '.5rem', margin: '.5rem', background: '#040F16', color: 'whitesmoke' }} elevation={2}>
         <h1>Messages to ME:</h1>
         {
           messages && messages.map(message => {
@@ -18,7 +19,7 @@ const Profile = ({ user }) => {
 
             if (userID !== fromUserID) {
               return (
-                <Card key={message._id}>
+                <Card style={{ padding: '.5rem', margin: '.5rem', background: 'B4D2E7', }} elevation={6} key={message._id}>
                   <p>From User:{username}</p>
                   <p>Message: {message.content}</p>
                   <p>Post Reference: {title}</p>
@@ -29,14 +30,23 @@ const Profile = ({ user }) => {
 
         }
       </Card>
-      <Card>
+      <Card style={{ padding: '.5rem', margin: '.5rem', background: '#0094C6', }} elevation={6}>
         <h1>Messages from ME:</h1>
         {
           messages && messages.map(message => {
             const fromUserID = message.fromUser._id;
             if (userID === fromUserID) {
               return (
-                <Card key={message._id}>{message.content}</Card>
+                <Card style=
+                  {{
+                    padding: '.5rem',
+                    margin: '.5rem',
+                    background: 'whitesmoke',
+                  }}
+                  elevation={6}
+                  key={message._id}>
+                  {message.content}
+                </Card>
               )
             }
           })

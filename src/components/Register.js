@@ -35,19 +35,21 @@ const Register = ({ setToken, navigate }) => {
         handleSubmit();
       }}>
         <TextField style={{margin: '.25rem'}}
+        type='text'
         label='Enter Username'
+        inputProps={{minLength: 3,maxLength:13}}
         onChange={(event) => setUsername(event.target.value)}
       />
         <TextField
           type='password'
-          minLength={'8'}
+          inputProps={{minLength: 8, maxLength:20}}
           required title='8 character minimum'
-          placeholder='Enter Password*'
+          label='Enter Password*'
           onChange={(event) => setPassword(event.target.value)} />
         <TextField
           type='password'
-          minLength={'8'}
-          placeholder='Confirm Password*'
+          inputProps={{minLength: 8, maxLength:20}}
+          label='Confirm Password*'
           onChange={(event) => setConfirmPassword(event.target.value)} />
         <Button style={{ height: '3rem', margin: '.25rem' }} variant='contained' type='submit'>Submit</Button>
       </form>

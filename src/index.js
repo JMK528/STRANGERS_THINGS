@@ -13,7 +13,7 @@ import {
   CreatePost,
   SinglePostView,
   EditPost,
- 
+
 
 } from './components';
 
@@ -21,6 +21,7 @@ import {
   getPosts,
   getUserDetails,
 } from './api';
+import { Container } from '@mui/system';
 
 
 
@@ -72,64 +73,69 @@ const App = () => {
   }, [token])
 
   return (
-<React.Fragment>
-<CssBaseline/>
-    <header>
-      <nav>
-        <Navbar logout={logout} token={token} />
-        <Routes>
-          <Route
-            path='/'
-            element={<Home />}
-          />
-          <Route
-            path='/posts'
-            element={<Posts
-              posts={posts}
-              token={token}
-              navigate={navigate} />}
-          />
-          <Route
-            path='/posts/:postID'
-            element={<SinglePostView
-              posts={posts}
-              token={token}
-              navigate={navigate}
-            />}
-          />
-          <Route
-            path='/profile'
-            element={<Profile user={user} />}
-          />
-          <Route
-            path='/posts/create-post'
-            element={<CreatePost
-              fetchPosts={fetchPosts}
-              token={token}
-              navigate={navigate} />}
-          />
-          <Route
-            exact path='/posts/edit-post/:postID'
-            element={<EditPost
-              fetchPosts={fetchPosts}
-              navigate={navigate}
-              posts={posts}
-              token={token} />}
-          />
-          <Route
-            path='/login'
-            element={<Login
-              setToken={setToken}
-              navigate={navigate} />} />
-          <Route
-            path='/register'
-            element={<Register
-              setToken={setToken}
-              token={token}
-              navigate={navigate} />} />        
+    <React.Fragment>
+      <CssBaseline />
+      <Container>
+        <header>
+          <nav>
+            <Navbar logout={logout} token={token} />
+            <Routes>
+              <Route
+                path='/'
+                element={<Home />}
+              />
+              <Route
+                path='/posts'
+                element={<Posts
+                  posts={posts}
+                  fetchPosts={fetchPosts}
+                  token={token}
+                  navigate={navigate} />}
+              />
+              <Route
+                path='/posts/:postID'
+                element={<SinglePostView
+                  posts={posts}
+                  token={token}
+                  navigate={navigate}
+                />}
+              />
+              <Route
+                path='/profile'
+                element={<Profile
+                  user={user}
+                  navigate={navigate} />}
+              />
+              <Route
+                path='/posts/create-post'
+                element={<CreatePost
+                  fetchPosts={fetchPosts}
+                  token={token}
+                  navigate={navigate} />}
+              />
+              <Route
+                exact path='/posts/edit-post/:postID'
+                element={<EditPost
+                  fetchPosts={fetchPosts}
+                  navigate={navigate}
+                  posts={posts}
+                  token={token} />}
+              />
+              <Route
+                path='/login'
+                element={<Login
+                  setToken={setToken}
+                  navigate={navigate} />} />
+              <Route
+                path='/register'
+                element={<Register
+                  setToken={setToken}
+                  token={token}
+                  navigate={navigate} />} />
             </Routes>
-      </nav>
-    </header>
+          </nav>
+        </header>
+      </Container>
     </React.Fragment>
   )
 }

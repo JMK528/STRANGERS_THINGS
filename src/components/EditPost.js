@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useParams, navigate } from "react-router-dom";
 import { updatePost, deletePost } from "../api";
-import DeleteIcon from '@mui/icons-material/Delete';
-
+import { Button, TextField, Card} from '@mui/material';
 
 
 const EditPost = ({ posts, token, navigate, fetchPosts }) => {
@@ -34,46 +33,76 @@ const EditPost = ({ posts, token, navigate, fetchPosts }) => {
     }
 
     return (
+        <Card style={{ padding: '.5rem', margin: '.5rem', background: '#001242',color:'whitesmoke' }} elevation={6} >
         <form onSubmit={(event) => {
             event.preventDefault();
             editPost();
                
             
         }}>
-            <input
+            <h1>Edit Post</h1>
+            
+            <TextField style={{width:'100%',padding: '.5rem', margin: '.5rem', background: 'whitesmoke'}}
                 type='text'
                 placeholder={title}
                 onChange={(event) => setNewTitle(event.target.value)}
             />
-            <input
+           <TextField style={{width:'100%',padding: '.5rem', margin: '.5rem', background: 'whitesmoke'}}
                 type='text'
                 placeholder={description}
                 onChange={(event) => setNewDescription(event.target.value)}
             />
-            <input
+            <TextField style={{width:'100%',padding: '.5rem', margin: '.5rem', background: 'whitesmoke'}}
                 type='text'
                 placeholder={price}
                 onChange={(event) => setNewPrice(event.target.value)}
             />
-            <input
+           <TextField style={{width:'100%',padding: '.5rem', margin: '.5rem', background: 'whitesmoke'}}
                 type='text'
                 placeholder={location}
                 onChange={(event) => setNewLocation(event.target.value)}
             />
-            <label>Will Deliver</label>
+            
+            <label style={{color:'whitesmoke'}}>Will Deliver</label>
             <input
                 type='checkbox'               
                 checked={newWillDeliver}
                 onChange={(event) => setNewWillDeliver(event.target.checked)}
             />
-            <button type="submit"
+            <Button style={{
+              marginTop: "2%",
+              width: "100%",
+              borderRadius: 35,
+              background: "#55586F",
+              opacity: "70%",
+              color: "#24A6D1",
+              borderColor: "#55586F",
+            }}
+            type="submit"
+            variant="outlined"
             onClick={() =>{
                 editPost();          
-            }}>Edit Post</button>
-            <button onClick={() =>{
-                deletePost(token, postID);                
-            }}>Delete Post</button>
+            }}>Edit Post</Button>
+            <Button   style={{
+              marginBottom: "2%",
+              marginTop: "2%",
+              width: "100%",
+              borderRadius: 35,
+              background: "#55586F",
+              opacity: "70%",
+              color: "red",
+              borderColor: "#55586F",
+            }}
+            type="submit"
+            color="error"
+            variant="outlined" onClick={() =>{
+                deletePost(token, postID);
+                navigate('/posts' )
+                fetchPosts()                  
+            }}>Delete Post</Button>
+           
         </form>
+        </Card>
     )
 }
 
